@@ -29,6 +29,7 @@ public class StockServiceImpl implements StockService {
         productInfo.setDiscountedPrice(stock.getDiscountedPrice());
         productInfo.setCategory(stock.getCategory());
         productInfo.setDescription(stock.getDescription());
+        productInfo.setImageUrl(stock.getImageUrl());
         SizeEntity size = new SizeEntity();
         size.setSmall(stock.getSizes().getSmall());
         size.setMedium(stock.getSizes().getMedium());

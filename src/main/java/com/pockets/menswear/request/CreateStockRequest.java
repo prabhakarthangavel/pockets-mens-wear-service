@@ -18,4 +18,6 @@ public class CreateStockRequest {
     private String description;
 
     private SizeRequest sizes;
+
+    private String imageUrl;
 }

@@ -33,4 +33,7 @@ public class ProductInfoEntity implements Serializable {
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "productInfoEntity", fetch = FetchType.EAGER, orphanRemoval = true)
     @PrimaryKeyJoinColumn
     private SizeEntity sizeEntity;
+
+    @Column(name = "img_url")
+    private String imageUrl;
 }
