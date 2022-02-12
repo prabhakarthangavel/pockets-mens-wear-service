@@ -18,7 +18,7 @@ public class MensWearApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/greeting-javaconfig").allowedOrigins("http://localhost:8080", "https://pockets-mens-wear.firebaseapp.com");
+				registry.addMapping("/greeting-javaconfig").allowedOrigins("http://localhost:8080").allowedOrigins("https://pockets-mens-wear.firebaseapp.com");
 			}
 		};
 	}
