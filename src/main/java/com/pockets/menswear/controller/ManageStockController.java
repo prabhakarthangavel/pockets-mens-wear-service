@@ -1,6 +1,6 @@
 package com.pockets.menswear.controller;
 
-import com.pockets.menswear.request.CreateStockRequest;
+import com.pockets.menswear.request.ProductRequest;
 import com.pockets.menswear.response.Response;
 import com.pockets.menswear.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +14,8 @@ public class ManageStockController {
     @Autowired
     private StockService stockService;
 
-    @GetMapping("/hello")
-    public ResponseEntity<Response> sayHello() {
-        return ResponseEntity.ok().body(new Response("hello world"));
-    }
-
     @PostMapping("/createStock")
-    public ResponseEntity<Response> createStock(@RequestBody final CreateStockRequest createStockRequest) {
+    public ResponseEntity<Response> createStock(@RequestBody final ProductRequest createStockRequest) {
         this.stockService.createStock(createStockRequest);
         return ResponseEntity.ok().body(new Response("created"));
     }

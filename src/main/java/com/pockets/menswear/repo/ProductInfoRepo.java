@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProductInfoRepo extends JpaRepository<ProductInfoEntity, Long> {
 
@@ -15,4 +17,6 @@ public interface ProductInfoRepo extends JpaRepository<ProductInfoEntity, Long> 
     public int createNewStock(@Param("name") String name, @Param("category") String category, @Param("actualPrice") int actualPrice,
                               @Param("discountedPrice") int discountedPrice, @Param("description") String description);
 
+//    @Query("SELECT PR FROM ProductInfoEntity PR WHERE PR.category=:category")
+    List<ProductInfoEntity> findByCategory(String category);
 }

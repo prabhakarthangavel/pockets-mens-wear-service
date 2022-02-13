@@ -1,8 +1,8 @@
 package com.pockets.menswear.service;
 
-import com.pockets.menswear.request.CreateStockRequest;
+import com.pockets.menswear.request.ProductRequest;
 
 public interface StockService {
 
-    public void createStock(CreateStockRequest stock);
+    public void createStock(ProductRequest stock);
 }

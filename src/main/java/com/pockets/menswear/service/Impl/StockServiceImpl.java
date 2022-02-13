@@ -4,7 +4,7 @@ import com.pockets.menswear.entity.ProductInfoEntity;
 import com.pockets.menswear.entity.SizeEntity;
 import com.pockets.menswear.repo.ProductInfoRepo;
 import com.pockets.menswear.repo.SizeRepo;
-import com.pockets.menswear.request.CreateStockRequest;
+import com.pockets.menswear.request.ProductRequest;
 import com.pockets.menswear.request.SizeRequest;
 import com.pockets.menswear.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,7 @@ public class StockServiceImpl implements StockService {
     private SizeRepo sizeRepo;
 
     @Override
-    @Transactional
-    public void createStock(CreateStockRequest stock) {
+    public void createStock(ProductRequest stock) {
         ProductInfoEntity productInfo = new ProductInfoEntity();
         productInfo.setName(stock.getName());
         productInfo.setActualPrice(stock.getActualPrice());
