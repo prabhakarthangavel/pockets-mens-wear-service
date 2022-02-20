@@ -7,4 +7,6 @@ import java.util.List;
 public interface ProductsService {
 
     List<ProductRequest> getProducts(String category);
+
+    ProductRequest getProductDetail(long id) throws Exception;
 }
