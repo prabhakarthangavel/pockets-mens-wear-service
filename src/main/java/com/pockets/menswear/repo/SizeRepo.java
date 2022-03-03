@@ -12,5 +12,9 @@ public interface SizeRepo extends JpaRepository<SizeEntity, Long> {
 
     @Modifying(clearAutomatically = true)
     @Query(value = "INSERT INTO size (id, small, medium, large, xlarge, xxlarge) VALUES (:id, :small, :medium, :large, :xlarge, :xxlarge)", nativeQuery = true)
-    public int createSize(@Param("id") int id, @Param("small") int small, @Param("medium") int medium, @Param("large") int large, @Param("xlarge") int xlarge, @Param("xxlarge") int xxlarge);
+    int createSize(@Param("id") int id, @Param("small") int small, @Param("medium") int medium, @Param("large") int large, @Param("xlarge") int xlarge, @Param("xxlarge") int xxlarge);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE SizeEntity SE SET SE.small=:small, SE.medium=:medium, SE.large=:large, SE.xlarge=:xlarge, SE.xxlarge=:xxlarge WHERE SE.id=:id")
+    void updateSize(@Param("id") long id, @Param("small") int small, @Param("medium") int medium, @Param("large") int large, @Param("xlarge") int xlarge, @Param("xxlarge") int xxlarge);
 }

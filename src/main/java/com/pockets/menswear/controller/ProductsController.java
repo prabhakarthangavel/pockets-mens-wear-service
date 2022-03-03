@@ -19,6 +19,15 @@ public class ProductsController {
     @Autowired
     private ProductsService productsService;
 
+    @GetMapping("/fetchProduct")
+    public ResponseEntity<?> getAllProducts() {
+        List<ProductRequest> productList = this.productsService.getAllProducts();
+        if (productList.isEmpty()) {
+            return ResponseEntity.badRequest().body(new Response("Nothing Found"));
+        }
+        return ResponseEntity.ok().body(productList);
+    }
+
     @GetMapping("/fetchProduct/{category}")
     public ResponseEntity<?> getProducts(@PathVariable final String category) {
         List<ProductRequest> productList = this.productsService.getProducts(category);

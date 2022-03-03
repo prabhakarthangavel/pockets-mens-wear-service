@@ -16,7 +16,21 @@ public class ManageStockController {
 
     @PostMapping("/createStock")
     public ResponseEntity<Response> createStock(@RequestBody final ProductRequest createStockRequest) {
-        this.stockService.createStock(createStockRequest);
-        return ResponseEntity.ok().body(new Response("created"));
+        try {
+            this.stockService.createStock(createStockRequest);
+            return ResponseEntity.ok().body(new Response("created"));
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(new Response(ex.getMessage()));
+        }
+    }
+
+    @PostMapping("/editStock")
+    public ResponseEntity<Response> editStock(@RequestBody final ProductRequest editStockRequest) {
+        try {
+            this.stockService.editStock(editStockRequest);
+            return ResponseEntity.ok().body(new Response("created"));
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(new Response(ex.getMessage()));
+        }
     }
 }

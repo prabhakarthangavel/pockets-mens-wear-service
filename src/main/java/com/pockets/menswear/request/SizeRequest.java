@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class SizeRequest {
+    private long id;
 
     private int small;
 

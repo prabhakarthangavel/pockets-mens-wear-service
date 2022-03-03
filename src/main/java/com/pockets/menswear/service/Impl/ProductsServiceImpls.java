@@ -20,6 +20,26 @@ public class ProductsServiceImpls implements ProductsService {
     private ProductInfoRepo productsRepo;
 
     @Override
+    public List<ProductRequest> getAllProducts() {
+        List<ProductRequest> productsList = new ArrayList<>();
+        this.productsRepo.findAll().forEach(item -> {
+            ProductRequest product = new ProductRequest();
+            product.setId(item.getId());
+            product.setName(item.getName());
+            product.setCategory(item.getCategory());
+            product.setActualPrice(item.getActualPrice());
+            product.setDiscountedPrice(item.getDiscountedPrice());
+            product.setDescription(item.getDescription());
+            product.setImageUrl(item.getImageUrl());
+            SizeEntity size = item.getSizeEntity();
+            SizeRequest sizeRequest = new SizeRequest(size.getId(), size.getSmall(), size.getMedium(), size.getLarge(), size.getXlarge(), size.getXxlarge());
+            product.setSizes(sizeRequest);
+            productsList.add(product);
+        });
+        return productsList;
+    }
+
+    @Override
     public List<ProductRequest> getProducts(final String category) {
         List<ProductRequest> productsList = new ArrayList<>();
         this.productsRepo.findByCategory(category).forEach(item -> {
@@ -32,7 +52,7 @@ public class ProductsServiceImpls implements ProductsService {
             product.setDescription(item.getDescription());
             product.setImageUrl(item.getImageUrl());
             SizeEntity size = item.getSizeEntity();
-            SizeRequest sizeRequest = new SizeRequest(size.getSmall(), size.getMedium(), size.getLarge(), size.getXlarge(), size.getXxlarge());
+            SizeRequest sizeRequest = new SizeRequest(size.getId(), size.getSmall(), size.getMedium(), size.getLarge(), size.getXlarge(), size.getXxlarge());
             product.setSizes(sizeRequest);
             productsList.add(product);
         });
@@ -52,7 +72,7 @@ public class ProductsServiceImpls implements ProductsService {
             product.setDescription(productInfo.get().getDescription());
             product.setImageUrl(productInfo.get().getImageUrl());
             SizeEntity size = productInfo.get().getSizeEntity();
-            SizeRequest sizeRequest = new SizeRequest(size.getSmall(), size.getMedium(), size.getLarge(), size.getXlarge(), size.getXxlarge());
+            SizeRequest sizeRequest = new SizeRequest(size.getId(), size.getSmall(), size.getMedium(), size.getLarge(), size.getXlarge(), size.getXxlarge());
             product.setSizes(sizeRequest);
             return product;
         }else {
@@ -60,7 +80,4 @@ public class ProductsServiceImpls implements ProductsService {
         }
 
     }
-
-
-
 }

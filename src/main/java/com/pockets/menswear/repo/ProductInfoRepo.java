@@ -14,9 +14,14 @@ public interface ProductInfoRepo extends JpaRepository<ProductInfoEntity, Long> 
 
     @Modifying(clearAutomatically = true)
     @Query(value = "INSERT INTO product_info (name, category, actual_price, discounted_price, description) VALUES (:name, :category, :actualPrice, :discountedPrice, :description)", nativeQuery = true  )
-    public int createNewStock(@Param("name") String name, @Param("category") String category, @Param("actualPrice") int actualPrice,
+    int createNewStock(@Param("name") String name, @Param("category") String category, @Param("actualPrice") int actualPrice,
                               @Param("discountedPrice") int discountedPrice, @Param("description") String description);
 
 //    @Query("SELECT PR FROM ProductInfoEntity PR WHERE PR.category=:category")
     List<ProductInfoEntity> findByCategory(String category);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE ProductInfoEntity PE SET PE.name=:name, PE.category=:category, PE.actualPrice=:actualPrice, PE.discountedPrice=:discountedPrice, PE.description=:description, PE.imageUrl=:imageUrl WHERE PE.id=:id")
+    void updateStock(@Param("id") long id, @Param("name") String name, @Param("category") String category, @Param("actualPrice") int actualPrice,
+                     @Param("discountedPrice") int discountedPrice, @Param("description") String description, @Param("imageUrl") String imageUrl);
 }

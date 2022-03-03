@@ -4,5 +4,7 @@ import com.pockets.menswear.request.ProductRequest;
 
 public interface StockService {
 
-    public void createStock(ProductRequest stock);
+    void createStock(ProductRequest stock);
+
+    void editStock(ProductRequest stock);
 }
