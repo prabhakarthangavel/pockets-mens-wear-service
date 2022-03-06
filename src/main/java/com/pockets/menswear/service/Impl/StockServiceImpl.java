@@ -44,7 +44,7 @@ public class StockServiceImpl implements StockService {
     @Override
     @Transactional
     public void editStock(ProductRequest stock) {
-        this.productInfoRepo.updateStock(stock.getId(), stock.getName(), stock.getCategory(), stock.getActualPrice(), stock.getDiscountedPrice(), stock.getDescription(), stock.getImageUrl());
+        this.productInfoRepo.updateStock(stock.getId(), stock.getName(), stock.getCategory(), stock.getActualPrice(), stock.getDiscountedPrice(), stock.getDescription());
         SizeRequest sizeRequest = stock.getSizes();
         this.sizeRepo.updateSize(sizeRequest.getId(), sizeRequest.getSmall(), sizeRequest.getMedium(), sizeRequest.getLarge(), sizeRequest.getXlarge(), sizeRequest.getXxlarge());
     }

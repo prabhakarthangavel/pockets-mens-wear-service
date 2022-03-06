@@ -20,8 +20,8 @@ public interface ProductInfoRepo extends JpaRepository<ProductInfoEntity, Long> 
 //    @Query("SELECT PR FROM ProductInfoEntity PR WHERE PR.category=:category")
     List<ProductInfoEntity> findByCategory(String category);
 
-    @Modifying(clearAutomatically = true)
-    @Query("UPDATE ProductInfoEntity PE SET PE.name=:name, PE.category=:category, PE.actualPrice=:actualPrice, PE.discountedPrice=:discountedPrice, PE.description=:description, PE.imageUrl=:imageUrl WHERE PE.id=:id")
+    @Modifying
+    @Query("UPDATE ProductInfoEntity PE SET PE.name=:name, PE.category=:category, PE.actualPrice=:actualPrice, PE.discountedPrice=:discountedPrice, PE.description=:description WHERE PE.id=:id")
     void updateStock(@Param("id") long id, @Param("name") String name, @Param("category") String category, @Param("actualPrice") int actualPrice,
-                     @Param("discountedPrice") int discountedPrice, @Param("description") String description, @Param("imageUrl") String imageUrl);
+                     @Param("discountedPrice") int discountedPrice, @Param("description") String description);
 }
