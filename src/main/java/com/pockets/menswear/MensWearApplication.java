@@ -18,7 +18,9 @@ public class MensWearApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**");
+				registry.addMapping("/**")
+						.allowedOrigins("*")
+						.allowedMethods("GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS");
 			}
 		};
 	}

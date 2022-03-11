@@ -30,7 +30,7 @@ public class ProductInfoEntity implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "productInfoEntity", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "productInfoEntity", fetch = FetchType.LAZY, orphanRemoval = true)
     @PrimaryKeyJoinColumn
     private SizeEntity sizeEntity;
 

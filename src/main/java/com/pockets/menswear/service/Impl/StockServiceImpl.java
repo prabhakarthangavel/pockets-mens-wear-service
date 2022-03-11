@@ -48,4 +48,9 @@ public class StockServiceImpl implements StockService {
         SizeRequest sizeRequest = stock.getSizes();
         this.sizeRepo.updateSize(sizeRequest.getId(), sizeRequest.getSmall(), sizeRequest.getMedium(), sizeRequest.getLarge(), sizeRequest.getXlarge(), sizeRequest.getXxlarge());
     }
+
+    @Override
+    public void deleteStock(long id) {
+        this.productInfoRepo.deleteById(id);
+    }
 }

@@ -7,4 +7,6 @@ public interface StockService {
     void createStock(ProductRequest stock);
 
     void editStock(ProductRequest stock);
+
+    void deleteStock(long id);
 }
