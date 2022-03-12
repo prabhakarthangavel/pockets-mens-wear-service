@@ -11,4 +11,6 @@ public interface ProductsService {
     List<ProductRequest> getProducts(String category);
 
     ProductRequest getProductDetail(long id) throws Exception;
+
+    List<ProductRequest> getTopDeals();
 }

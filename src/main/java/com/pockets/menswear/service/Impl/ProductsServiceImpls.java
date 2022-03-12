@@ -9,9 +9,7 @@ import com.pockets.menswear.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductsServiceImpls implements ProductsService {
@@ -75,9 +73,40 @@ public class ProductsServiceImpls implements ProductsService {
             SizeRequest sizeRequest = new SizeRequest(size.getId(), size.getSmall(), size.getMedium(), size.getLarge(), size.getXlarge(), size.getXxlarge());
             product.setSizes(sizeRequest);
             return product;
-        }else {
+        } else {
             throw new Exception("Invalid Id, product not found");
         }
 
+    }
+
+    @Override
+    public List<ProductRequest> getTopDeals() {
+        List<ProductRequest> productsList = new ArrayList<>();
+        List<ProductInfoEntity> entityList = this.productsRepo.findByDiscountedPriceGreaterThan(0);
+        if (!entityList.isEmpty()) {
+            Collections.sort(entityList, new Comparator<ProductInfoEntity>() {
+                @Override
+                public int compare(ProductInfoEntity o1, ProductInfoEntity o2) {
+                    int disount1 = 100 * (o1.getActualPrice() - o1.getDiscountedPrice()) / o1.getActualPrice();
+                    int disount2 = 100 * (o2.getActualPrice() - o2.getDiscountedPrice()) / o2.getActualPrice();
+                    return disount2 - disount1;
+                }
+            });
+            entityList.forEach(item -> {
+                ProductRequest product = new ProductRequest();
+                product.setId(item.getId());
+                product.setName(item.getName());
+                product.setCategory(item.getCategory());
+                product.setActualPrice(item.getActualPrice());
+                product.setDiscountedPrice(item.getDiscountedPrice());
+                product.setDescription(item.getDescription());
+                product.setImageUrl(item.getImageUrl());
+                SizeEntity size = item.getSizeEntity();
+                SizeRequest sizeRequest = new SizeRequest(size.getId(), size.getSmall(), size.getMedium(), size.getLarge(), size.getXlarge(), size.getXxlarge());
+                product.setSizes(sizeRequest);
+                productsList.add(product);
+            });
+        }
+        return productsList;
     }
 }

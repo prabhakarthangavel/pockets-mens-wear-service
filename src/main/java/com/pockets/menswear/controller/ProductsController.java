@@ -35,7 +35,16 @@ public class ProductsController {
     public ResponseEntity<?> getProductDetail(@PathVariable final long id) {
         try {
             return ResponseEntity.ok().body(this.productsService.getProductDetail(id));
-        }catch (Exception ex) {
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(new Response(ex.getMessage()));
+        }
+    }
+
+    @GetMapping("/topDeals")
+    public ResponseEntity<?> getTopDeals() {
+        try {
+            return ResponseEntity.ok().body(this.productsService.getTopDeals());
+        } catch (Exception ex) {
             return ResponseEntity.badRequest().body(new Response(ex.getMessage()));
         }
     }
