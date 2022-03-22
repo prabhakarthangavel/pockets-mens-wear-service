@@ -36,4 +36,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new UserNameAlreadyExist("User Name Already Exist!");
         }
     }
+
+    @Override
+    public String getFullName(String username) {
+        Users user = this.usersRepo.findByUsername(username);
+        return user.getFirstname() + " " + user.getLastname();
+    }
 }

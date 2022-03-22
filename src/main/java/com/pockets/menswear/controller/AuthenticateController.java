@@ -48,7 +48,7 @@ public class AuthenticateController {
             jwt = this.jwtUtil.generateToken(userDetails);
 
         } catch (BadCredentialsException e) {
-            return ResponseEntity.ok(new Response(jwt));
+            return ResponseEntity.badRequest().body(new Response("Incorrect Username/Password"));
         }
         return ResponseEntity.ok(new Response(jwt));
     }

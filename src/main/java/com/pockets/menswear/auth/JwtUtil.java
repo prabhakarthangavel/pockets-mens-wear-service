@@ -1,5 +1,6 @@
 package com.pockets.menswear.auth;
 
+import com.pockets.menswear.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,8 +23,8 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String secret;
 
-//    @Autowired
-//    private AuthenticationService authService;
+    @Autowired
+    private AuthenticationService authService;
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
@@ -49,7 +50,8 @@ public class JwtUtil {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-//        claims.put("fullname", this.authService.getFullName(userDetails.getUsername()));
+        claims.put("fullname", this.authService.getFullName(userDetails.getUsername()));
+        claims.put("role", userDetails.getAuthorities());
         return doGenerateToken(claims, userDetails.getUsername());
     }
 

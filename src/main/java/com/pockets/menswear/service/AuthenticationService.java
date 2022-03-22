@@ -5,4 +5,6 @@ import com.pockets.menswear.request.RegisterRequest;
 
 public interface AuthenticationService {
     void createNewUser(RegisterRequest request) throws UserNameAlreadyExist;
+
+    String getFullName(String username);
 }
