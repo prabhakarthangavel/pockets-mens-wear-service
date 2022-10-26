@@ -1,21 +1,30 @@
 package com.pockets.menswear.service.Impl;
 
+import com.pockets.menswear.auth.SecurityConfigurer;
+import com.pockets.menswear.entity.CartEntity;
 import com.pockets.menswear.entity.ProductInfoEntity;
 import com.pockets.menswear.entity.SizeEntity;
+import com.pockets.menswear.repo.CartRepo;
 import com.pockets.menswear.repo.ProductInfoRepo;
+import com.pockets.menswear.request.CartRequest;
 import com.pockets.menswear.request.ProductRequest;
 import com.pockets.menswear.request.SizeRequest;
+import com.pockets.menswear.response.CartContentResponse;
 import com.pockets.menswear.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class ProductsServiceImpls implements ProductsService {
 
     @Autowired
     private ProductInfoRepo productsRepo;
+
+    @Autowired
+    private CartRepo cartRepo;
 
     @Override
     public List<ProductRequest> getAllProducts() {
@@ -109,4 +118,41 @@ public class ProductsServiceImpls implements ProductsService {
         }
         return productsList;
     }
+
+    @Override
+    public void addToCart(CartRequest cartRequest) {
+        CartEntity cartEntity = new CartEntity();
+        cartEntity.setUsername(SecurityConfigurer.getLoggedInUser());
+        cartEntity.setProductid(cartRequest.getProductid());
+        cartEntity.setQuantity(cartRequest.getQuantity());
+        cartEntity.setSize(cartRequest.getSize());
+        this.cartRepo.save(cartEntity);
+    }
+
+    @Override
+    public List<CartEntity> fetchCartItems() {
+        this.cartRepo.findAllByUsername(SecurityConfigurer.getLoggedInUser()).forEach(System.out::println);
+        return this.cartRepo.findAllByUsername(SecurityConfigurer.getLoggedInUser());
+    }
+
+    @Override
+    public List<CartContentResponse> fetchCartItemsDetail() {
+        List<CartContentResponse> cartResponse = new ArrayList<>();
+            this.cartRepo.findAllByUsername(SecurityConfigurer.getLoggedInUser()).stream().forEach(cart -> {
+            CartContentResponse response = new CartContentResponse();
+                response.setProductId(cart.getProductid());
+                response.setQuantity(cart.getQuantity());
+                response.setSize(cart.getSize());
+                this.productsRepo.findById(cart.getProductid()).ifPresent(info -> {
+                response.setName(info.getName());
+                response.setCategory(info.getCategory());
+                response.setActualPrice(info.getActualPrice());
+                response.setDiscountedPrice(info.getDiscountedPrice());
+                response.setImageUrl(info.getImageUrl());
+            });
+            cartResponse.add(response);
+        });
+        return cartResponse;
+    }
+
 }

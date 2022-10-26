@@ -22,6 +22,7 @@ public class MyUserDetailsService implements UserDetailsService {
         if (user != null) {
             userDetails = new MyUserDetails();
             userDetails.setUser(user);
+            userDetails.getAuthorities().forEach(System.out::println);
         } else {
             throw new UsernameNotFoundException("User not exist with name : " + username);
         }
