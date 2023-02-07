@@ -24,4 +24,6 @@ public interface ProductsService {
     List<CartEntity> fetchCartItems();
 
     List<CartContentResponse> fetchCartItemsDetail();
+
+    long deleteCartItem(long productId);
 }

@@ -74,4 +74,13 @@ public class ProductsController {
             return ResponseEntity.badRequest().body(new Response(ex.getMessage()));
         }
     }
+
+    @DeleteMapping("/removeCartItem")
+    public ResponseEntity<?> deleteItem(@RequestParam final long productId) {
+        try {
+            return ResponseEntity.ok().body(this.productsService.deleteCartItem(productId));
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(new Response(ex.getMessage()));
+        }
+    }
 }

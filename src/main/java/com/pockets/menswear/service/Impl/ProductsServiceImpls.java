@@ -14,6 +14,7 @@ import com.pockets.menswear.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -153,6 +154,12 @@ public class ProductsServiceImpls implements ProductsService {
             cartResponse.add(response);
         });
         return cartResponse;
+    }
+
+    @Override
+    @Transactional
+    public long deleteCartItem(long productId) {
+        return this.cartRepo.deleteByProductid(productId);
     }
 
 }
