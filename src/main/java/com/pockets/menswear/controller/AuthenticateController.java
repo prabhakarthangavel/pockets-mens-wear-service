@@ -63,7 +63,7 @@ public class AuthenticateController {
 
     @GetMapping("/test")
     public ResponseEntity<Response> getTest() {
-        return ResponseEntity.ok().body(new Response("connection success"));
+        return ResponseEntity.ok().body(new Response("COnnection success"));
     }
 
 }
